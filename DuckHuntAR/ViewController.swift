@@ -30,8 +30,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
         
-        addTargetNodes()
-        
+//        addTargetNodes()
+        addDuckBylevel()
         // Create a new scene
 //        let scene = SCNScene(named: "art.scnassets/ship.scn")!
         
@@ -109,7 +109,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         node.position = position
         var nodeDirection = SCNVector3()
 
-            nodeDirection  = SCNVector3(direction.x*4,direction.y*4,direction.z*4)
+            nodeDirection  = SCNVector3(direction.x*50,direction.y*50,direction.z*50)
             node.physicsBody?.applyForce(nodeDirection, at: SCNVector3(0.5,0,0), asImpulse: true)
         
         node.physicsBody?.applyForce(nodeDirection , asImpulse: true)
@@ -130,13 +130,41 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         return (SCNVector3(0, 0, -1), SCNVector3(0, 0, -0.2))
     }
     
+    
+    
+    @objc func addDuckBylevel() {
+        var duckNode = SCNNode()
+        let scene = SCNScene(named: "art.scnassets/bird_open.dae")
+        duckNode = (scene?.rootNode.childNode(withName: "Cube_003", recursively: true)!)!
+        duckNode.scale = SCNVector3(0.5,0.5,0.4)
+        duckNode.name = "Duck"
+        duckNode.isHidden = false
+        
+        // random position
+        duckNode.position = SCNVector3(randomFloat(min: -10, max: 10),randomFloat(min: -4, max: 5),randomFloat(min: -20, max: -7))
+    
+        duckNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
+        duckNode.physicsBody?.isAffectedByGravity = false
+        duckNode.physicsBody?.applyForce(SCNVector3Make(0, 0, Float(arc4random_uniform(2) + 2) ), asImpulse: true)
+        duckNode.physicsBody?.categoryBitMask = CollisionCategory.duck.rawValue
+        duckNode.physicsBody?.contactTestBitMask = CollisionCategory.bullets.rawValue
+        
+        sceneView.scene.rootNode.addChildNode(duckNode)
+        
+        let duckDisappearAction = SCNAction.sequence([SCNAction.wait(duration: 10),SCNAction.fadeOut(duration: 1), SCNAction.removeFromParentNode()])
+        duckNode.runAction(duckDisappearAction)
+        
+        Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(addDuckBylevel), userInfo: nil, repeats: false)
+      
+    }
+    
     func addTargetNodes(){
         for _ in 1...20 {
             
             var node = SCNNode()
-                let scene = SCNScene(named: "art.scnassets/duck.dae")
-                node = (scene?.rootNode.childNode(withName: "Cube", recursively: true)!)!
-                node.scale = SCNVector3(0.5,0.5,0.5)
+                let scene = SCNScene(named: "art.scnassets/bird_open.dae")
+                node = (scene?.rootNode.childNode(withName: "Cube_003", recursively: true)!)!
+                node.scale = SCNVector3(0.5,0.5,0.4)
                 node.name = "Duck"
 
             
@@ -148,10 +176,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
             
             //rotate
             let action : SCNAction = SCNAction.rotate(by: .pi, around: SCNVector3(0, 1, 0), duration: 1.0)
-            let movingAction : SCNAction = SCNAction.move(by: SCNVector3(0, 0.1, 0), duration: 10000)
+//            let movingAction : SCNAction = SCNAction.move(by: SCNVector3(0, 0.1, 0), duration: 10000)
             let forever = SCNAction.repeatForever(action)
             node.runAction(forever)
-            node.runAction(movingAction)
+//            node.runAction(movingAction)
             
             //for collision detection
             node.physicsBody?.categoryBitMask = CollisionCategory.duck.rawValue
@@ -171,13 +199,20 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
             
             if (contact.nodeA.name! == "Duck" || contact.nodeB.name! == "Duck") {
                score+=5
-            }else{
-               score+=1
             }
             
             DispatchQueue.main.async {
-                contact.nodeA.removeFromParentNode()
                 contact.nodeB.removeFromParentNode()
+                contact.nodeA.physicsBody?.isAffectedByGravity = true
+                contact.nodeA.physicsBody?.applyForce(SCNVector3Make(0, 0, 0 ), asImpulse: true)
+//                let action : SCNAction = SCNAction.rotate(by: .pi, around: SCNVector3(0, 1, 0), duration: 1.0)
+//                let forever = SCNAction.repeatForever(action)
+//                contact.nodeA.runAction(forever)
+                let duckDisappearAction = SCNAction.sequence([SCNAction.wait(duration: 5),SCNAction.fadeOut(duration: 1), SCNAction.removeFromParentNode()])
+                contact.nodeA.runAction(duckDisappearAction)
+                
+                
+                
                 self.Score.text = String(self.score)
             }
             
@@ -197,4 +232,12 @@ struct CollisionCategory: OptionSet {
     static let bullets  = CollisionCategory(rawValue: 1 << 0) // 00...01
     static let duck = CollisionCategory(rawValue: 1 << 1) // 00..10
 }
+
+// TODO
+// ADD LEVELS
+// dOGGGO
+// ADD GOLDEN DUCK
+// FIX MOVMENT
+// MUSIC
+// PLANE FLOOR DETECTION
 
