@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		06164A3D224EF43200D53CBB /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06164A3C224EF43200D53CBB /* Bullet.swift */; };
+		06164A41224F291A00D53CBB /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 06164A40224F291A00D53CBB /* spark.png */; };
+		06164A43224F292000D53CBB /* Explode.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 06164A42224F292000D53CBB /* Explode.scnp */; };
 		06217C03224EBD3D00FAFA2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06217C02224EBD3D00FAFA2C /* AppDelegate.swift */; };
 		06217C05224EBD3D00FAFA2C /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 06217C04224EBD3D00FAFA2C /* art.scnassets */; };
 		06217C07224EBD3D00FAFA2C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06217C06224EBD3D00FAFA2C /* ViewController.swift */; };
@@ -18,6 +20,8 @@
 
 /* Begin PBXFileReference section */
 		06164A3C224EF43200D53CBB /* Bullet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
+		06164A40224F291A00D53CBB /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spark.png; path = ../../../../Downloads/spark.png; sourceTree = "<group>"; };
+		06164A42224F292000D53CBB /* Explode.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; name = Explode.scnp; path = ../../../../Downloads/Explode.scnp; sourceTree = "<group>"; };
 		06217BFF224EBD3D00FAFA2C /* DuckHuntAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DuckHuntAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06217C02224EBD3D00FAFA2C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		06217C04224EBD3D00FAFA2C /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -39,6 +43,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		06164A3F224F290900D53CBB /* Particles */ = {
+			isa = PBXGroup;
+			children = (
+				06164A42224F292000D53CBB /* Explode.scnp */,
+				06164A40224F291A00D53CBB /* spark.png */,
+			);
+			path = Particles;
+			sourceTree = "<group>";
+		};
 		06217BF6224EBD3D00FAFA2C = {
 			isa = PBXGroup;
 			children = (
@@ -58,6 +71,7 @@
 		06217C01224EBD3D00FAFA2C /* DuckHuntAR */ = {
 			isa = PBXGroup;
 			children = (
+				06164A3F224F290900D53CBB /* Particles */,
 				06217C02224EBD3D00FAFA2C /* AppDelegate.swift */,
 				06217C04224EBD3D00FAFA2C /* art.scnassets */,
 				06217C06224EBD3D00FAFA2C /* ViewController.swift */,
@@ -128,10 +142,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06164A41224F291A00D53CBB /* spark.png in Resources */,
 				06217C05224EBD3D00FAFA2C /* art.scnassets in Resources */,
 				06217C0F224EBD3E00FAFA2C /* LaunchScreen.storyboard in Resources */,
 				06217C0C224EBD3E00FAFA2C /* Assets.xcassets in Resources */,
 				06217C0A224EBD3D00FAFA2C /* Main.storyboard in Resources */,
+				06164A43224F292000D53CBB /* Explode.scnp in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

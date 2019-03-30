@@ -13,7 +13,7 @@ import SceneKit
 class Bullet: SCNNode {
     override init () {
         super.init()
-        let sphere = SCNSphere(radius: 0.025)
+        let sphere = SCNSphere(radius: 0.05)
         self.geometry = sphere
         let shape = SCNPhysicsShape(geometry: sphere, options: nil)
         self.physicsBody = SCNPhysicsBody(type: .dynamic, shape: shape)
@@ -22,11 +22,15 @@ class Bullet: SCNNode {
         // see http://texnotes.me/post/5/ for details on collisions and bit masks
 //        self.physicsBody?.categoryBitMask = CollisionCategory.bullets.rawValue
 //        self.physicsBody?.contactTestBitMask = CollisionCategory.ship.rawValue
+        //for collisons
+        self.physicsBody?.categoryBitMask = CollisionCategory.bullets.rawValue
+        self.physicsBody?.contactTestBitMask = CollisionCategory.duck.rawValue
         
         // add texture
         let material = SCNMaterial()
         material.diffuse.contents = UIImage(named: "bullet_texture")
         self.geometry?.materials  = [material]
+        self.name = "Bullet"
     }
     
     required init?(coder aDecoder: NSCoder) {

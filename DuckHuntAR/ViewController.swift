@@ -10,9 +10,13 @@ import UIKit
 import SceneKit
 import ARKit
 
-class ViewController: UIViewController, ARSCNViewDelegate {
+class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
+    @IBOutlet weak var Score: UILabel!
+    
+    
+    var score = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,8 +24,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Set the view's delegate
         sceneView.delegate = self
         
+        // collision detection
+        sceneView.scene.physicsWorld.contactDelegate = self
+        
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
+        
+        addTargetNodes()
         
         // Create a new scene
 //        let scene = SCNScene(named: "art.scnassets/ship.scn")!
@@ -80,7 +89,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let (direction, position) = self.getUserVector()
         bulletsNode.position = position // SceneKit/AR coordinates are in meters
        
-        let bulletDirection  = SCNVector3(direction.x*4,direction.y*4,direction.z*4)
+        let bulletDirection  = SCNVector3(direction.x*8,direction.y*8,direction.z*8)
         bulletsNode.physicsBody?.applyForce(bulletDirection, asImpulse: true)
         sceneView.scene.rootNode.addChildNode(bulletsNode)
     }
@@ -90,6 +99,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         return node
     }
     
+
     
     // fire bullet in direction camera is facing
     func fireBullet(){
@@ -119,4 +129,72 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         }
         return (SCNVector3(0, 0, -1), SCNVector3(0, 0, -0.2))
     }
+    
+    func addTargetNodes(){
+        for _ in 1...20 {
+            
+            var node = SCNNode()
+                let scene = SCNScene(named: "art.scnassets/duck.dae")
+                node = (scene?.rootNode.childNode(withName: "Cube", recursively: true)!)!
+                node.scale = SCNVector3(0.5,0.5,0.5)
+                node.name = "Duck"
+
+            
+            node.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
+            node.physicsBody?.isAffectedByGravity = false
+            
+            //place randomly, within thresholds
+            node.position = SCNVector3(randomFloat(min: -10, max: 10),randomFloat(min: -4, max: 5),randomFloat(min: -10, max: 10))
+            
+            //rotate
+            let action : SCNAction = SCNAction.rotate(by: .pi, around: SCNVector3(0, 1, 0), duration: 1.0)
+            let movingAction : SCNAction = SCNAction.move(by: SCNVector3(0, 0.1, 0), duration: 10000)
+            let forever = SCNAction.repeatForever(action)
+            node.runAction(forever)
+            node.runAction(movingAction)
+            
+            //for collision detection
+            node.physicsBody?.categoryBitMask = CollisionCategory.duck.rawValue
+            node.physicsBody?.contactTestBitMask = CollisionCategory.bullets.rawValue
+            
+            //add to scene
+            sceneView.scene.rootNode.addChildNode(node)
+        }
+    }
+    
+    func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
+        
+        print("** Collision!! " + contact.nodeA.name! + " hit " + contact.nodeB.name!)
+        
+        if contact.nodeA.physicsBody?.categoryBitMask == CollisionCategory.duck.rawValue
+            || contact.nodeB.physicsBody?.categoryBitMask == CollisionCategory.duck.rawValue {
+            
+            if (contact.nodeA.name! == "Duck" || contact.nodeB.name! == "Duck") {
+               score+=5
+            }else{
+               score+=1
+            }
+            
+            DispatchQueue.main.async {
+                contact.nodeA.removeFromParentNode()
+                contact.nodeB.removeFromParentNode()
+                self.Score.text = String(self.score)
+            }
+            
+            let  explosion = SCNParticleSystem(named: "Explode", inDirectory: nil)
+            contact.nodeB.addParticleSystem(explosion!)
+        }
+    }
+    
+    func randomFloat(min: Float, max: Float) -> Float {
+        return (Float(arc4random()) / 0xFFFFFFFF) * (max - min) + min
+    }
 }
+
+struct CollisionCategory: OptionSet {
+    let rawValue: Int
+    
+    static let bullets  = CollisionCategory(rawValue: 1 << 0) // 00...01
+    static let duck = CollisionCategory(rawValue: 1 << 1) // 00..10
+}
+

@@ -56,6 +56,7 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="Score" destination="8Fw-QY-W6I" id="Y7w-B9-Lc7"/>
                         <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
                     </connections>
                 </viewController>
