@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06164A3D224EF43200D53CBB /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06164A3C224EF43200D53CBB /* Bullet.swift */; };
 		06217C03224EBD3D00FAFA2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06217C02224EBD3D00FAFA2C /* AppDelegate.swift */; };
 		06217C05224EBD3D00FAFA2C /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 06217C04224EBD3D00FAFA2C /* art.scnassets */; };
 		06217C07224EBD3D00FAFA2C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06217C06224EBD3D00FAFA2C /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		06164A3C224EF43200D53CBB /* Bullet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
 		06217BFF224EBD3D00FAFA2C /* DuckHuntAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DuckHuntAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06217C02224EBD3D00FAFA2C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		06217C04224EBD3D00FAFA2C /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				06217C0B224EBD3E00FAFA2C /* Assets.xcassets */,
 				06217C0D224EBD3E00FAFA2C /* LaunchScreen.storyboard */,
 				06217C10224EBD3E00FAFA2C /* Info.plist */,
+				06164A3C224EF43200D53CBB /* Bullet.swift */,
 			);
 			path = DuckHuntAR;
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 			files = (
 				06217C07224EBD3D00FAFA2C /* ViewController.swift in Sources */,
 				06217C03224EBD3D00FAFA2C /* AppDelegate.swift in Sources */,
+				06164A3D224EF43200D53CBB /* Bullet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
