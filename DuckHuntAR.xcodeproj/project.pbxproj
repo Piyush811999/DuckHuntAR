@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		061297B822508DA30058E37E /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061297B722508DA30058E37E /* StartViewController.swift */; };
+		061297BA2250965F0058E37E /* duck_hunt.wav in Resources */ = {isa = PBXBuildFile; fileRef = 061297B92250965E0058E37E /* duck_hunt.wav */; };
 		06164A3D224EF43200D53CBB /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06164A3C224EF43200D53CBB /* Bullet.swift */; };
 		06164A41224F291A00D53CBB /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 06164A40224F291A00D53CBB /* spark.png */; };
 		06164A43224F292000D53CBB /* Explode.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 06164A42224F292000D53CBB /* Explode.scnp */; };
@@ -16,9 +18,22 @@
 		06217C0A224EBD3D00FAFA2C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06217C08224EBD3D00FAFA2C /* Main.storyboard */; };
 		06217C0C224EBD3E00FAFA2C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06217C0B224EBD3E00FAFA2C /* Assets.xcassets */; };
 		06217C0F224EBD3E00FAFA2C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06217C0D224EBD3E00FAFA2C /* LaunchScreen.storyboard */; };
+		06490CC7225066B200FBD2EC /* Title.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 06490CBC225066B200FBD2EC /* Title.mp3 */; };
+		06490CC8225066B200FBD2EC /* Intro.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 06490CBD225066B200FBD2EC /* Intro.mp3 */; };
+		06490CC9225066B200FBD2EC /* Game Over.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 06490CBE225066B200FBD2EC /* Game Over.mp3 */; };
+		06490CCA225066B200FBD2EC /* Duck Quack.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 06490CBF225066B200FBD2EC /* Duck Quack.mp3 */; };
+		06490CCB225066B200FBD2EC /* Dog Bark.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 06490CC0225066B200FBD2EC /* Dog Bark.mp3 */; };
+		06490CCC225066B200FBD2EC /* Bullet.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 06490CC1225066B200FBD2EC /* Bullet.mp3 */; };
+		06490CCD225066B200FBD2EC /* Dead Duck Falls.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 06490CC2225066B200FBD2EC /* Dead Duck Falls.mp3 */; };
+		06490CCE225066B200FBD2EC /* Dog Laughs.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 06490CC3225066B200FBD2EC /* Dog Laughs.mp3 */; };
+		06490CCF225066B200FBD2EC /* HIt.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 06490CC4225066B200FBD2EC /* HIt.mp3 */; };
+		06490CD0225066B200FBD2EC /* Gun Shot.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 06490CC5225066B200FBD2EC /* Gun Shot.mp3 */; };
+		06490CD1225066B200FBD2EC /* Round Clear.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 06490CC6225066B200FBD2EC /* Round Clear.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		061297B722508DA30058E37E /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		061297B92250965E0058E37E /* duck_hunt.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = duck_hunt.wav; path = ../../../../Downloads/duck_hunt.wav; sourceTree = "<group>"; };
 		06164A3C224EF43200D53CBB /* Bullet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
 		06164A40224F291A00D53CBB /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spark.png; path = ../../../../Downloads/spark.png; sourceTree = "<group>"; };
 		06164A42224F292000D53CBB /* Explode.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; name = Explode.scnp; path = ../../../../Downloads/Explode.scnp; sourceTree = "<group>"; };
@@ -30,6 +45,17 @@
 		06217C0B224EBD3E00FAFA2C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		06217C0E224EBD3E00FAFA2C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		06217C10224EBD3E00FAFA2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		06490CBC225066B200FBD2EC /* Title.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Title.mp3; path = ../../../../Downloads/DuckHunSoundes/Title.mp3; sourceTree = "<group>"; };
+		06490CBD225066B200FBD2EC /* Intro.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Intro.mp3; path = ../../../../Downloads/DuckHunSoundes/Intro.mp3; sourceTree = "<group>"; };
+		06490CBE225066B200FBD2EC /* Game Over.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Game Over.mp3"; path = "../../../../Downloads/DuckHunSoundes/Game Over.mp3"; sourceTree = "<group>"; };
+		06490CBF225066B200FBD2EC /* Duck Quack.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Duck Quack.mp3"; path = "../../../../Downloads/DuckHunSoundes/Duck Quack.mp3"; sourceTree = "<group>"; };
+		06490CC0225066B200FBD2EC /* Dog Bark.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Dog Bark.mp3"; path = "../../../../Downloads/DuckHunSoundes/Dog Bark.mp3"; sourceTree = "<group>"; };
+		06490CC1225066B200FBD2EC /* Bullet.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Bullet.mp3; path = ../../../../Downloads/DuckHunSoundes/Bullet.mp3; sourceTree = "<group>"; };
+		06490CC2225066B200FBD2EC /* Dead Duck Falls.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Dead Duck Falls.mp3"; path = "../../../../Downloads/DuckHunSoundes/Dead Duck Falls.mp3"; sourceTree = "<group>"; };
+		06490CC3225066B200FBD2EC /* Dog Laughs.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Dog Laughs.mp3"; path = "../../../../Downloads/DuckHunSoundes/Dog Laughs.mp3"; sourceTree = "<group>"; };
+		06490CC4225066B200FBD2EC /* HIt.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = HIt.mp3; path = ../../../../Downloads/DuckHunSoundes/HIt.mp3; sourceTree = "<group>"; };
+		06490CC5225066B200FBD2EC /* Gun Shot.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Gun Shot.mp3"; path = "../../../../Downloads/DuckHunSoundes/Gun Shot.mp3"; sourceTree = "<group>"; };
+		06490CC6225066B200FBD2EC /* Round Clear.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Round Clear.mp3"; path = "../../../../Downloads/DuckHunSoundes/Round Clear.mp3"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +97,7 @@
 		06217C01224EBD3D00FAFA2C /* DuckHuntAR */ = {
 			isa = PBXGroup;
 			children = (
+				06490CBB225064E500FBD2EC /* Sounds */,
 				06164A3F224F290900D53CBB /* Particles */,
 				06217C02224EBD3D00FAFA2C /* AppDelegate.swift */,
 				06217C04224EBD3D00FAFA2C /* art.scnassets */,
@@ -80,8 +107,28 @@
 				06217C0D224EBD3E00FAFA2C /* LaunchScreen.storyboard */,
 				06217C10224EBD3E00FAFA2C /* Info.plist */,
 				06164A3C224EF43200D53CBB /* Bullet.swift */,
+				061297B722508DA30058E37E /* StartViewController.swift */,
 			);
 			path = DuckHuntAR;
+			sourceTree = "<group>";
+		};
+		06490CBB225064E500FBD2EC /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				06490CC1225066B200FBD2EC /* Bullet.mp3 */,
+				06490CC2225066B200FBD2EC /* Dead Duck Falls.mp3 */,
+				06490CC0225066B200FBD2EC /* Dog Bark.mp3 */,
+				06490CC3225066B200FBD2EC /* Dog Laughs.mp3 */,
+				06490CBF225066B200FBD2EC /* Duck Quack.mp3 */,
+				06490CBE225066B200FBD2EC /* Game Over.mp3 */,
+				061297B92250965E0058E37E /* duck_hunt.wav */,
+				06490CC5225066B200FBD2EC /* Gun Shot.mp3 */,
+				06490CC4225066B200FBD2EC /* HIt.mp3 */,
+				06490CBD225066B200FBD2EC /* Intro.mp3 */,
+				06490CC6225066B200FBD2EC /* Round Clear.mp3 */,
+				06490CBC225066B200FBD2EC /* Title.mp3 */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,11 +189,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				061297BA2250965F0058E37E /* duck_hunt.wav in Resources */,
 				06164A41224F291A00D53CBB /* spark.png in Resources */,
 				06217C05224EBD3D00FAFA2C /* art.scnassets in Resources */,
+				06490CD0225066B200FBD2EC /* Gun Shot.mp3 in Resources */,
+				06490CC7225066B200FBD2EC /* Title.mp3 in Resources */,
+				06490CC8225066B200FBD2EC /* Intro.mp3 in Resources */,
+				06490CCD225066B200FBD2EC /* Dead Duck Falls.mp3 in Resources */,
+				06490CCC225066B200FBD2EC /* Bullet.mp3 in Resources */,
+				06490CCF225066B200FBD2EC /* HIt.mp3 in Resources */,
 				06217C0F224EBD3E00FAFA2C /* LaunchScreen.storyboard in Resources */,
 				06217C0C224EBD3E00FAFA2C /* Assets.xcassets in Resources */,
+				06490CCE225066B200FBD2EC /* Dog Laughs.mp3 in Resources */,
+				06490CCA225066B200FBD2EC /* Duck Quack.mp3 in Resources */,
+				06490CC9225066B200FBD2EC /* Game Over.mp3 in Resources */,
 				06217C0A224EBD3D00FAFA2C /* Main.storyboard in Resources */,
+				06490CCB225066B200FBD2EC /* Dog Bark.mp3 in Resources */,
+				06490CD1225066B200FBD2EC /* Round Clear.mp3 in Resources */,
 				06164A43224F292000D53CBB /* Explode.scnp in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -158,6 +217,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				061297B822508DA30058E37E /* StartViewController.swift in Sources */,
 				06217C07224EBD3D00FAFA2C /* ViewController.swift in Sources */,
 				06217C03224EBD3D00FAFA2C /* AppDelegate.swift in Sources */,
 				06164A3D224EF43200D53CBB /* Bullet.swift in Sources */,

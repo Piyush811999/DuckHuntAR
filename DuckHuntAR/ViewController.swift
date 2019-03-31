@@ -9,14 +9,54 @@
 import UIKit
 import SceneKit
 import ARKit
+import AVFoundation
 
 class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet weak var Score: UILabel!
     
+    @IBOutlet weak var tierLable: UILabel!
     
     var score = 0
+    var stage = 0
+    var player: AVAudioPlayer?
+    
+    /// timer
+    var seconds = 40
+    var timer = Timer()
+    var isTimerRunning = false
+    
+    func runTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
+    }
+    
+    @objc func updateTimer() {
+        if seconds == 0 {
+            timer.invalidate()
+            gameOver()
+        }else{
+            seconds -= 1
+            tierLable.text = "\(seconds)"
+        }
+        
+    }
+    
+    func resetTimer(){
+        timer.invalidate()
+        seconds = 40
+        tierLable.text = "\(seconds)"
+    }
+    
+    func gameOver(){
+        //store the score in UserDefaults
+        let defaults = UserDefaults.standard
+        defaults.set(score, forKey: "score")
+        //go back to the Home View Controller
+        playAudio(name: "Game Over.mp3")
+        self.dismiss(animated: true, completion: nil)
+    }
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,8 +70,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
         
+        playAudio(name: "Intro.mp3")
+        
+        
 //        addTargetNodes()
         addDuckBylevel()
+        
+        runTimer()
         // Create a new scene
 //        let scene = SCNScene(named: "art.scnassets/ship.scn")!
         
@@ -113,6 +158,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
             node.physicsBody?.applyForce(nodeDirection, at: SCNVector3(0.5,0,0), asImpulse: true)
         
         node.physicsBody?.applyForce(nodeDirection , asImpulse: true)
+        playSound(sound: "Bullet", format: "mp3")
         sceneView.scene.rootNode.addChildNode(node)
     }
 
@@ -134,27 +180,42 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     
     @objc func addDuckBylevel() {
         var duckNode = SCNNode()
-        let scene = SCNScene(named: "art.scnassets/bird_open.dae")
+        var goldenDuckNode = SCNNode()
+        
+        //normal duck
+        var scene = SCNScene(named: "art.scnassets/bird_open.dae")
         duckNode = (scene?.rootNode.childNode(withName: "Cube_003", recursively: true)!)!
         duckNode.scale = SCNVector3(0.5,0.5,0.4)
         duckNode.name = "Duck"
         duckNode.isHidden = false
         
+        //golden duck
+        scene = SCNScene(named: "art.scnassets/duck.dae")
+        goldenDuckNode = (scene?.rootNode.childNode(withName: "Cube", recursively: true)!)!
+        goldenDuckNode.scale = SCNVector3(0.5,0.5,0.4)
+        goldenDuckNode.name = "GoldenDuck"
+        goldenDuckNode.isHidden = false
+        
         // random position
         duckNode.position = SCNVector3(randomFloat(min: -10, max: 10),randomFloat(min: -4, max: 5),randomFloat(min: -20, max: -7))
-    
+
         duckNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
         duckNode.physicsBody?.isAffectedByGravity = false
+        
+        //this thing need to change
         duckNode.physicsBody?.applyForce(SCNVector3Make(0, 0, Float(arc4random_uniform(2) + 2) ), asImpulse: true)
         duckNode.physicsBody?.categoryBitMask = CollisionCategory.duck.rawValue
         duckNode.physicsBody?.contactTestBitMask = CollisionCategory.bullets.rawValue
+        
+        playAudio(name: "Duck Quack.mp3")
         
         sceneView.scene.rootNode.addChildNode(duckNode)
         
         let duckDisappearAction = SCNAction.sequence([SCNAction.wait(duration: 10),SCNAction.fadeOut(duration: 1), SCNAction.removeFromParentNode()])
         duckNode.runAction(duckDisappearAction)
         
-        Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(addDuckBylevel), userInfo: nil, repeats: false)
+        
+        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(addDuckBylevel), userInfo: nil, repeats: false)
       
     }
     
@@ -173,6 +234,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
             
             //place randomly, within thresholds
             node.position = SCNVector3(randomFloat(min: -10, max: 10),randomFloat(min: -4, max: 5),randomFloat(min: -10, max: 10))
+            
             
             //rotate
             let action : SCNAction = SCNAction.rotate(by: .pi, around: SCNVector3(0, 1, 0), duration: 1.0)
@@ -203,13 +265,19 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
             
             DispatchQueue.main.async {
                 contact.nodeB.removeFromParentNode()
-                contact.nodeA.physicsBody?.isAffectedByGravity = true
+                contact.nodeA.physicsBody?.isAffectedByGravity = false
                 contact.nodeA.physicsBody?.applyForce(SCNVector3Make(0, 0, 0 ), asImpulse: true)
 //                let action : SCNAction = SCNAction.rotate(by: .pi, around: SCNVector3(0, 1, 0), duration: 1.0)
 //                let forever = SCNAction.repeatForever(action)
 //                contact.nodeA.runAction(forever)
-                let duckDisappearAction = SCNAction.sequence([SCNAction.wait(duration: 5),SCNAction.fadeOut(duration: 1), SCNAction.removeFromParentNode()])
+                self.playAudio(name: "Gun Shot.mp3")
+                self.playAudio(name: "duck_hunt.wav")
+                let duckDisappearAction = SCNAction.sequence([SCNAction.wait(duration: 1),SCNAction.fadeOut(duration: 1), SCNAction.removeFromParentNode()])
                 contact.nodeA.runAction(duckDisappearAction)
+                self.dogAppears(number: 1, position: contact.nodeA.position)
+                
+                
+                
                 
                 
                 
@@ -221,9 +289,89 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         }
     }
     
+    func dogAppears(number: Int, position: SCNVector3) {
+        if number == 2 {
+            var node = SCNNode()
+            let scene = SCNScene(named: "art.scnassets/dog_double_bird.dae")
+            node = (scene?.rootNode.childNode(withName: "Cube_007", recursively: true)!)!
+            node.scale = SCNVector3(0.5,0.5,0.4)
+            node.name = "Dog_2"
+            
+            node.physicsBody?.isAffectedByGravity = false
+            node.position = SCNVector3(position.x,position.y,position.z + 3)
+            node.physicsBody?.applyForce(SCNVector3Make(0, 1, 0), asImpulse: true)
+            node.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
+            sceneView.scene.rootNode.addChildNode(node)
+            let dogDisappearAction = SCNAction.sequence([SCNAction.wait(duration: 3),SCNAction.fadeOut(duration: 1), SCNAction.removeFromParentNode()])
+            node.runAction(dogDisappearAction)
+            
+            
+        }else{
+            var node = SCNNode()
+            let scene = SCNScene(named: "art.scnassets/dog_single_bird.dae")
+            node = (scene?.rootNode.childNode(withName: "Cube_005", recursively: false)!)!
+            node.scale = SCNVector3(0.5,0.5,0.5)
+            node.name = "Dog_1"
+            
+            node.physicsBody?.isAffectedByGravity = false
+            node.position = position
+            //node.physicsBody?.applyForce(SCNVector3Make(0, 0, 0), asImpulse: true)
+            node.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
+            
+            let dogDisappearAction = SCNAction.sequence([SCNAction.wait(duration: 1),SCNAction.fadeOut(duration: 2), SCNAction.removeFromParentNode()])
+            node.runAction(dogDisappearAction)
+            sceneView.scene.rootNode.addChildNode(node)
+            
+            
+            
+        }
+    }
+    
     func randomFloat(min: Float, max: Float) -> Float {
         return (Float(arc4random()) / 0xFFFFFFFF) * (max - min) + min
     }
+    
+    
+    func playSound(sound : String, format: String) {
+        guard let url = Bundle.main.url(forResource: sound, withExtension: format) else { return }
+        do {
+            try! AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: .mixWithOthers)
+            try! AVAudioSession.sharedInstance().setActive(true)
+            
+            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+            
+            guard let player = player else { return }
+            player.play()
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    
+    func playBackgroundMusic(){
+        let audioNode = SCNNode()
+        let audioSource = SCNAudioSource(fileNamed: "Intro.mp3")!
+        let audioPlayer = SCNAudioPlayer(source: audioSource)
+        
+        audioNode.addAudioPlayer(audioPlayer)
+        
+        let play = SCNAction.playAudio(audioSource, waitForCompletion: true)
+        audioNode.runAction(play)
+        sceneView.scene.rootNode.addChildNode(audioNode)
+    }
+    
+    func playAudio(name: String) {
+        let audioNode = SCNNode()
+        let audioSource = SCNAudioSource(fileNamed: name)!
+        let audioPlayer = SCNAudioPlayer(source: audioSource)
+        
+        audioNode.addAudioPlayer(audioPlayer)
+        
+        let play = SCNAction.playAudio(audioSource, waitForCompletion: true)
+        audioNode.runAction(play)
+        sceneView.scene.rootNode.addChildNode(audioNode)
+    }
+    
 }
 
 struct CollisionCategory: OptionSet {
@@ -232,6 +380,7 @@ struct CollisionCategory: OptionSet {
     static let bullets  = CollisionCategory(rawValue: 1 << 0) // 00...01
     static let duck = CollisionCategory(rawValue: 1 << 1) // 00..10
 }
+
 
 // TODO
 // ADD LEVELS
